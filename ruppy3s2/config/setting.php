@@ -18,7 +18,7 @@ return [
             'role' => 'editor'
         ],
         [
-            'name' => 'Editor 1',
+            'name' => 'Editor 2',
             'email' => 'editor2@test.com',
             'password' => 'editor2',
             'role' => 'editor'

@@ -12,6 +12,7 @@
               <th>Name</th>
               <th>Unit Price</th>
               <th>Quantity In Stock</th>
+              <th>Created By</th>
               <th>
                 <a class="btn btn-primary" href="{{ route('products.create') }}">+ New</a>
               </th>
@@ -25,18 +26,24 @@
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->unit_price }}</td>
                 <td>{{ $product->qty_in_stock }}</td>
+                <td>{{ $product->user->name }}</td>
                 <td>
                   <ul>
-                    <li>
-                      <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit </a>
-                    </li>
-                    <li>
-                      <form id="productDelete{{$product->id}}" method="POST" action="{{ route('products.destroy', $product->id) }}">
-                        @csrf
-                        @method('DELETE')
-                      </form>
-                      <a class="btn btn-danger" href="#" onclick="document.getElementById('productDelete{{$product->id}}').submit()">Delete</a>
-                    </li>
+                    @can('update', $product)
+                      <li>
+                        <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit </a>
+                      </li>
+                    @endcan
+
+                    @can('delete', $product)
+                      <li>
+                        <form id="productDelete{{$product->id}}" method="POST" action="{{ route('products.destroy', $product->id) }}">
+                          @csrf
+                          @method('DELETE')
+                        </form>
+                        <a class="btn btn-danger" href="#" onclick="document.getElementById('productDelete{{$product->id}}').submit()">Delete</a>
+                      </li>
+                    @endcan
                   </ul>
                 </td>
               </tr>
