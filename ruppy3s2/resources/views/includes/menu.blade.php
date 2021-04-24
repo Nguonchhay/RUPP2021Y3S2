@@ -20,20 +20,29 @@
             <a class="nav-link" href="{{ route('pages.contact') }}">Contact</a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('products.index') }}">Products</a>
-          </li>
-
           @if(Auth::user())
-            <form id="frmLogout" action="{{ url('/logout') }}" method="POST">
-              @csrf
-            </form>
+            @can('crud-category')
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
+              </li>
+            @endcan
+
             <li class="nav-item">
-              <a class="nav-link" href="#" onclick="document.getElementById('frmLogout').submit();">Logout</a>
+              <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+            </li>
+
+            <li class="nav-item">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ Auth::user()->name }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <form id="frmLogout" action="{{ url('/logout') }}" method="POST">
+                    @csrf
+                  </form>
+                  <a class="dropdown-item" href="#" onclick="document.getElementById('frmLogout').submit();">Logout</a>
+                </div>
+              </div>
             </li>
           @else
             <li class="nav-item">

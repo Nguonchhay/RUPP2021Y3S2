@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->float('unit_price');
             $table->integer('qty_in_stock');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }

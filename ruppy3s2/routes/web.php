@@ -21,7 +21,8 @@ Route::group(['web'], function() {
 
     Route::post('/forms/contact', [App\Http\Controllers\FormController::class, 'contactSubmit'])->name('forms.contact_submit');
 
-    Route::resource('categories', App\Http\Controllers\CategoryController::class)->middleware(['html_tag']);
+    Route::resource('categories', App\Http\Controllers\CategoryController::class)
+        ->middleware(['html_tag', 'can:crud-category']);
     Route::resource('products', App\Http\Controllers\ProductController::class);
 });
 
