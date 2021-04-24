@@ -22,10 +22,22 @@
               <tr>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $product->category->name }}</td>
+                <td>{{ $product->name }}</td>
                 <td>{{ $product->unit_price }}</td>
                 <td>{{ $product->qty_in_stock }}</td>
                 <td>
-                  Edit | Delete
+                  <ul>
+                    <li>
+                      <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit </a>
+                    </li>
+                    <li>
+                      <form id="productDelete{{$product->id}}" method="POST" action="{{ route('products.destroy', $product->id) }}">
+                        @csrf
+                        @method('DELETE')
+                      </form>
+                      <a class="btn btn-danger" href="#" onclick="document.getElementById('productDelete{{$product->id}}').submit()">Delete</a>
+                    </li>
+                  </ul>
                 </td>
               </tr>
             @endforeach

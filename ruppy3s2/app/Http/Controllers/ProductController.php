@@ -30,13 +30,6 @@ class ProductController extends Controller
         return redirect(route('products.index'));
     }
 
-    public function show(Product $product)
-    {
-        return view('products.show', [
-            'product' => $product
-        ]);
-    }
-
     public function edit(Product $product)
     {
         $categories = Category::get();
@@ -46,13 +39,15 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $product)
+    public function update(Request $request, Product $product)
     {
+        $product->update($request->all());
         return redirect(route('products.index'));
     }
 
-    public function destroy(ProductRequest $product)
+    public function destroy(Product $product)
     {
+        $product->delete();
         return redirect(route('products.index'));
     }
 }
